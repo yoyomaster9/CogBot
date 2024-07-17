@@ -30,8 +30,8 @@ class Utilities(commands.Cog):
                     brief = 'Returns information on the bot.')
     async def about(self, ctx):
         embed=discord.Embed(
-            title="Text Formatting",
-            description="Here are some ways to format text",
+            title="CogBot",
+            description="Personal ",
             color=discord.Color.orange()  )
         embed.set_author(name=self.bot.user.display_name, url="https://github.com/yoyomaster9/CogBot", icon_url=self.bot.user.avatar)
         embed.add_field(name="*Italics*", value="Surround your text in asterisks ()", inline=False)
