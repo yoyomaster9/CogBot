@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import json, aiohttp
 import yaml
 
 with open('app/config.yaml', 'r') as file:
