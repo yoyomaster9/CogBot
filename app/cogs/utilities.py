@@ -13,11 +13,10 @@ class Utilities(commands.Cog):
                     help = 'Responds with Pong!',
                     brief = 'Responds with Pong!')
     async def ping(self, ctx):
-        print('ping?')
         await ctx.send('Pong! {}ms'.format(round(self.bot.latency*1000, 1)))
 
     @commands.command(brief = 'Logs out of all servers. ADMIN ONLY',
-                    description  = 'Logs out of all servers.\nONLY FOR ADMIN USE!')
+                      description  = 'Logs out of all servers.\nONLY FOR ADMIN USE!')
     async def logout(self, ctx):
         if ctx.author.id == config['AdminID']:
             await ctx.send('Logging out!!')
@@ -26,7 +25,7 @@ class Utilities(commands.Cog):
             await ctx.send('You\'re not an admin!')
 
     @commands.command(description = 'Returns information on the bot.',
-                    brief = 'Returns information on the bot.')
+                      brief = 'Returns information on the bot.')
     async def about(self, ctx):
         embed=discord.Embed(
             title="CogBot",
