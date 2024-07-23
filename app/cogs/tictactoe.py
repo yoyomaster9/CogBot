@@ -5,27 +5,14 @@ import discord
 class TictactoeCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
-    @commands.command(
-                description = 'Makes a button that you can click',
-                help = 'Makes a button.',
-                brief = 'Makes a button.')
-    async def tictactoe(self, ctx):
-        await ctx.send('Pong! {}ms'.format(round(self.bot.latency*1000, 1)))
 
-        # view = discord.ui.View() # Establish an instance of the discord.ui.View class
-        # style = discord.ButtonStyle.red  # The button will be gray in color
-        # item = discord.ui.Button(style=style, label="Click me!", url="https://discordpy.readthedocs.io/en/master")  # Create an item to pass into the view class.
-        # view.add_item(item=item)  # Add that item into the view class
-        # await ctx.send("This message has buttons!", view=view)  # Send your message with a button.
-        await ctx.send('part 2!', view = Button())
-
-    @commands.command(description = 'Starts a tic-tac-toe game.',
-                      help = 'Starts a tic-tac-toe game.',
-                      brief = 'Tic Tac Toe')
-    async def tictactoe(self, ctx: commands.Context):
+    @discord.app_commands.command(
+            name = 'tictactoe',
+            description = 'Starts a tic-tac-toe game.',
+            )
+    async def tictactoe(self, interaction: discord.Interaction):
         """Starts a tic-tac-toe game with yourself."""
-        await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
+        await interaction.response.send_message('Tic Tac Toe: X goes first', view=TicTacToe())
 
 # Defines a custom button that contains the logic of the game.
 # The ['TicTacToe'] bit is for type hinting purposes to tell your IDE or linter
@@ -45,10 +32,6 @@ class TicTacToeButton(discord.ui.Button['TicTacToe']):
     async def callback(self, interaction: discord.Interaction):
         assert self.view is not None
         view: TicTacToe = self.view
-        state = view.board[self.y][self.x]
-        if state in (view.X, view.O):
-            return
-
         if view.current_player == view.X:
             self.style = discord.ButtonStyle.danger
             self.label = 'X'
@@ -142,3 +125,6 @@ class TicTacToe(discord.ui.View):
             return self.Tie
 
         return None
+
+async def setup(bot):
+    await bot.add_cog(TictactoeCog(bot))

@@ -9,10 +9,11 @@ class ButtonCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(
+    @discord.app_commands.command(
                 description = 'Makes a button that you can click',
-                help = 'Makes a button.',
-                brief = 'Makes a button.')
+                # help = 'Makes a button.',
+                # brief = 'Makes a button.'
+                )
     async def button(self, ctx):
         await ctx.send('Pong! {}ms'.format(round(self.bot.latency*1000, 1)))
 
@@ -41,3 +42,5 @@ class Button(discord.ui.View):
         await interaction.response.edit_message(view=self)
 
 
+async def setup(bot):
+    await bot.add_cog(ButtonCog(bot))
