@@ -17,7 +17,7 @@ class DiscordRouletteView(discord.ui.View):
     # View to hold buttons 
 
     def __init__(self, fail_type = None, winner_buttons = 6, loser_buttons = 1):
-        super().__init__(timeout=10)
+        super().__init__(timeout=300)
         # Create n buttons where one has consequnces with type
         self.fail_type = fail_type
         buttons = [DiscordRouletteButton(fail_type=self.fail_type) for i in range(winner_buttons)] + [DiscordRouletteButton(fail_type=self.fail_type, loser=True) for i in range(loser_buttons)] 

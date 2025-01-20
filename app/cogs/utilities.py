@@ -13,16 +13,16 @@ class Utilities(commands.Cog):
                     # help = 'Responds with Pong!',
                     # brief = 'Responds with Pong!'
                     )
-    async def ping(self, ctx):
-        await ctx.send('Pong! {}ms'.format(round(self.bot.latency*1000, 1)))
+    async def ping(self, interaction: discord.Interaction):
+        await interaction.response.send_message('Pong! {}ms'.format(round(self.bot.latency*1000, 1)))
 
     @discord.app_commands.command(description  = 'Logs out of all servers')
-    async def logout(self, ctx):
-        if ctx.author.id == config['AdminID']:
-            await ctx.send('Logging out!!')
+    async def logout(self, interaction: discord.Interaction):
+        if interaction.user.id == config['AdminID']:
+            await interaction.response.send_message('Logging out!!')
             await self.bot.close()
         else:
-            await ctx.send('You\'re not an admin!')
+            await interaction.response.send_message('You\'re not an admin!')
 
     @discord.app_commands.command(description = 'Returns information on the bot.')
     async def about(self, ctx):
