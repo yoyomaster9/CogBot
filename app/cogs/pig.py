@@ -24,33 +24,12 @@ class PigCog(commands.Cog):
 class PigView(discord.ui.View):
     def __init__(self, player1: discord.User, player2: discord.User, excluded_numbers: str):
         super().__init__()
-        self.player1 = player1
-        self.player2 = player2
-        self.active_player = random.choice((player1, player2))
-        self.excluded_numbers = [int(x) for x in excluded_numbers if x in '123456']
-        self.rolls = []
+
+        self.pg = PigGame(player1, player2, excluded_numbers)
+
         self.add_item(PigRollButton())
         self.add_item(PigStopButton())
-    
-    async def update(self):
-        # msg = 
-        pass
 
-    def roll(self):
-        n = random.randint(1, 6)
-        # if n in ex
-        
-
-    def stop(self):
-
-
-        
-        # self.active_player = 
-
-        if self.active_player == self.player1:
-            self.active_player = self.player2
-        else:
-            self.active_player = self.player1
 
 class PigRollButton(discord.ui.Button):
     def __init__(self):
@@ -73,6 +52,25 @@ class PigStopButton(discord.ui.Button):
             return False
         await super().interaction_check(interaction)
 
+class PigGame:
+    def __init__(self, player1: discord.User, player2: discord.User, excluded_numbers: str):
+        self.player1 = player1
+        self.player2 = player2
+        self.active_player = random.choice((player1, player2))
+        self.excluded_numbers = [int(x) for x in excluded_numbers if x in '123456']
+        self.rolls = []
+
+    def roll(self):
+        n = random.randint(1, 6)
+
+        
+
+    def stop(self):
+
+        if self.active_player == self.player1:
+            self.active_player = self.player2
+        else:
+            self.active_player = self.player1
 
 async def setup(bot):
     await bot.add_cog(PigCog(bot))
