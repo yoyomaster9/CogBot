@@ -6,6 +6,6 @@ ADD app app
 
 RUN mkdir ./data
 
-RUN pip install discord.py==2.4.0 pyyaml
+RUN pip install discord.py==2.4.0 pyyaml pytz
 
 CMD ["python", "-u", "./app/main.py"]
