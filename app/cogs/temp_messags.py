@@ -35,7 +35,7 @@ class TempMessageCog(commands.Cog):
         for channel_speed, kwargs in self.temp_channels.items():
             channel = self.bot.get_channel(kwargs['ChannelID'])
             channel_name = f'temp-{channel_speed}{format_seconds(kwargs["Time"])}'.lower()
-            await channel.edit(name = channel_name, topic = f"Messages will be deleted after {kwargs['Time']} seconds")
+            await channel.edit(name = channel_name, topic = f"Messages will be deleted after {format_seconds(kwargs['Time'])} seconds")
              
     @commands.Cog.listener()
     async def on_message(self, message):
