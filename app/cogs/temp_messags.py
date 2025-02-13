@@ -16,11 +16,11 @@ def format_seconds(sec: int) -> str:
     minutes, seconds = divmod(minutes, 60)
     output = ''
     if hours > 0:
-        output += f'-{hours}hr'
+        output += f'{hours}hr'
     if minutes > 0:
-        output += f'-{minutes}m'
+        output += f' {minutes}m'
     if seconds > 0:
-        output += f'-{seconds}s'
+        output += f' {seconds}s'
     return output
 
 
@@ -34,7 +34,7 @@ class TempMessageCog(commands.Cog):
     async def on_ready(self):
         for channel_speed, kwargs in self.temp_channels.items():
             channel = self.bot.get_channel(kwargs['ChannelID'])
-            channel_name = f'temp-{channel_speed}{format_seconds(kwargs["Time"])}'.lower()
+            channel_name = f'temp-{channel_speed}-{format_seconds(kwargs["Time"])}'.lower().replace(' ', '-')
             await channel.edit(name = channel_name, topic = f"Messages will be deleted after {format_seconds(kwargs['Time'])} seconds")
              
     @commands.Cog.listener()
