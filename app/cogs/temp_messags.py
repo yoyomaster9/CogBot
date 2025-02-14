@@ -35,12 +35,10 @@ class TempMessageCog(commands.Cog):
 
         for channel_name, kwargs in self.temp_channels.items():
             channel = self.bot.get_channel(kwargs['ChannelID'])
+            channel_name = f'{channel_name}-{format_seconds(kwargs["Time"])}'.lower().replace(' ', '-')
+
             await channel.purge()
             await channel.send(f'Welcome to the {channel_name}. Messages will be deleted after {format_seconds(kwargs["Time"])}')
-
-        for channel_name, kwargs in self.temp_channels.items():
-            channel = self.bot.get_channel(kwargs['ChannelID'])
-            channel_name = f'{channel_name}-{format_seconds(kwargs["Time"])}'.lower().replace(' ', '-')
             await channel.edit(name = channel_name, topic = f"Messages will be deleted after {format_seconds(kwargs['Time'])} seconds")
              
     @commands.Cog.listener()
